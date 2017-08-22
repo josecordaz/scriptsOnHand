@@ -7,16 +7,17 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.1/clipboard.min.js"></script>
     <script src="https://s3.amazonaws.com/stitch-sdks/js/library/stable/stitch.min.js"></script>
     <script type="text/javascript" src="mongooperations.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
     <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
-<body>
+<body id = "bodyId">
     <div class="search-block">
         <h1>Scripts on hand</h1>
         <form>
           <input type="text" class="input-search"/>
           <button type="submit">Search</button>
-          <button type="button" class="align-right">Add</button>
+          <button type="button" class="align-right" onclick="openNewScript()">Add</button>
         </form>
       </div>
       <div>
