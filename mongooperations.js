@@ -2,8 +2,15 @@ let db;
 let client;
 let scripts;
 
+function load(url){
+    req = new XMLHttpRequest();
+    req.open("GET", url, false);
+    req.send(null);
+    return req.responseText; 
+}
+
 function connectMongo(func){
-    client = new stitch.StitchClient('scriptonhand-twffr');
+    client = new stitch.StitchClient(load('mongoStitch'));
     db = client.service('mongodb', 'mongodb-atlas').db('scriptOnHand');
     client.login().then(() =>
       db.collection('scripts').updateOne({owner_id: client.authedId()}, {$set:{number:42}}, {upsert:true})
@@ -17,13 +24,6 @@ function connectMongo(func){
     }).catch(err => {
       console.error(err)
     });
-}
-
-function load(url){
-    req = new XMLHttpRequest();
-    req.open("GET", url, false);
-    req.send(null);
-    return req.responseText; 
 }
 
 function addScriptsToDOM(){
