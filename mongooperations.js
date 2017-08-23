@@ -9,27 +9,36 @@ function load(url){
     return req.responseText; 
 }
 
-function connectMongo(func){
+function connectMongo(){
     client = new stitch.StitchClient(load('mongoStitch'));
-    db = client.service('mongodb', 'mongodb-atlas').db('scriptOnHand');
-    client.login().then(() =>
-      db.collection('scripts').updateOne({owner_id: client.authedId()}, {$set:{number:42}}, {upsert:true})
-    ).then(()=>
-      db.collection('scripts').find({owner_id: client.authedId()})
-    ).then(docs => {
-      scripts = docs;
-      func();
-      console.log('Found docs', docs)
-      console.log('[MongoDB Stitch] Connected to Stitch')
+    console.log('load');
+    console.log(load('mongoStitch'));
+    db = client.service('mongodb', 'mongodb-atlas').db('scriptsOnHand');
+    client.login().then(() => {
+      console.log('[MongoDB Stitch] Connected to Stitch');
+      getAllScripts();
     }).catch(err => {
       console.error(err)
     });
 }
 
+function getAllScripts(){
+    db.collection('scripts').find({owner_id: client.authedId()}).then(docs => {
+        scripts = docs;
+        addScriptsToDOM();
+        console.log('Found docs', docs);
+    }).catch(err => {
+        console.error(err)
+    });
+}
+
 function addScriptsToDOM(){
-    ul = document.querySelector('ul');
+    let ref = document.querySelector('ul');
+    if(ref){
+        ref.remove();
+    }
+    let ul = document.createElement('ul');
     let template = load('templateLI.html');
-    console.log('scripts size'+scripts.length);
     scripts.forEach((element) => {
       if(element.script){
         li = document.createElement('li');
@@ -41,8 +50,7 @@ function addScriptsToDOM(){
         ul.appendChild(li);
       }
     });
+    document.body.appendChild(ul);
 }
 
-connectMongo(()=>{
-    addScriptsToDOM();
-});
+connectMongo();
