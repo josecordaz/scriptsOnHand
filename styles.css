@@ -47,3 +47,29 @@ body {
     height     : 100%;
     background : rgba(64, 64, 66, 0.45);
   }
+
+  .div-new-script {
+    background : white;
+    width      : 50%;
+    margin     : 0 auto;
+    margin-top : 92px;
+    height     : 325px;
+    padding    : 11px;
+  }
+
+  .description-textarea {
+    margin      : 0px;
+    width       : calc(100% - 4px);
+    height      : 246px;
+    font-size   : 14px;
+    font-weight : 100;
+  }
+
+  #script-content{
+    width : calc(100% - 4px);
+  }
+
+  .id-input {
+      visibility : hidden;
+      position   : absolute;
+  }

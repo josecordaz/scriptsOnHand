@@ -15,20 +15,13 @@
     <div class="search-block">
         <h1>Scripts on hand</h1>
         <form>
-          <input type="text" class="input-search"/>
+          <input type="text" class="input-search" onkeyup="searchScripts(this.value)"/>
           <button type="submit">Search</button>
           <button type="button" class="align-right" onclick="openNewScript()">Add</button>
         </form>
       </div>
       <div>
         <ul>
-            <li>
-                <div class = "script">
-                    <span id="foo">docker run ubuntu1</span>
-                    <button data-clipboard-target="#foo" class = "btn align-right">Copy</button>
-                </div>
-                <div class="description">command to execute a ubuntu container</div>
-            </li>
         <ul>
     </div>
 </body>

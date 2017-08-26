@@ -19,20 +19,38 @@ window.closeNewScriptForm = function(){
     document.querySelector('#new-script-window').remove();
 }
 
-window.saveScript = function(){
-    db.collection('scripts').insert(
-        {
-          script: document.querySelector('#script-content').value,
-          description:document.querySelector('#script-description').value,
-          copied:0,
-          creationDate:new Date(),
-          owner_id: client.authedId()
-        }
-    ).then(()=>{
-        getAllScripts();
-        alert('Script saved');
-        closeNewScriptForm();
-    }).catch((error)=>{
-        alert('error = '+error);
-    });
+function addNewScriptToDom(id){
+    let li = document.createElement('li');
+    let template = load('templateLI.html');
+    template = template.replace(new RegExp('SCRIPT_ID', 'g'), id);
+    template = template.replace('SCRIPT_CODE', document.querySelector('#script-content').value);
+    template = template.replace('SCRIPT_DESCRIPTION', document.querySelector('#script-description').value);
+    li.innerHTML = template;
+    document.querySelector('ul').insertBefore(li, document.querySelector('li'));
 }
+
+function deleteScriptOnDOM(id){
+    var r = confirm("You want to delete this item?");
+    if (r == true) {
+        deleteScriptById(id,()=>{
+            document.querySelector('#_'+id).parentElement.parentElement.remove();
+        });
+    }
+}
+
+function openUpdateWindow(id) {
+    let update = scripts.find(item => item._id.toString() === id );
+    openNewScript();
+    document.querySelector('#script-content').value = update.script;
+    document.querySelector('#script-description').value = update.description;
+    document.querySelector('#script-id').value = update._id.toString();
+}
+
+function updateScriptOnDOM(id, script, description) {
+    let scriptDOMElement = document.querySelector('#_'+id);
+    let descriptionDOMElement = scriptDOMElement.parentElement.nextElementSibling;
+
+    scriptDOMElement.innerHTML = script;
+    descriptionDOMElement.innerHTML = description;
+}
+
