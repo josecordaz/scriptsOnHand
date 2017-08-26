@@ -77,6 +77,16 @@ function updateScript(){
             }
         }
     ).then((docs) => {
+        //console.log();
+        scripts = scripts.map(item => {
+            if(item._id.toString() === docs.result[0]._id.toString()){
+                console.log('TRUE');
+                return docs.result[0];
+            } else {
+                console.log('FALSE');
+                return item;
+            }
+        });
         alert('Script updated');
         updateScriptOnDOM(idDom, newScript, newDescription);
         closeNewScriptForm();
@@ -138,6 +148,17 @@ function deleteScriptById(id,func){
     }).catch(error => {
         alert('error = '+error);
     });
+}
+
+function incCopied(id){
+    db.collection('scripts').updateOne(
+        { _id:{$oid:id} },
+        { $inc:
+           {
+             copied : 1
+           }
+        }
+    ).catch(error => alert(error));
 }
 
 connectMongo();

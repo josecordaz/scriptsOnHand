@@ -1,7 +1,7 @@
 <div class = "script">
     <span id = "_SCRIPT_ID">SCRIPT_CODE</span>
     <button onclick = "deleteScriptOnDOM('SCRIPT_ID')" class = "btn align-right">Delete</button>
-    <button data-clipboard-target = "#_SCRIPT_ID" class = "btn align-right">Copy</button>
+    <button data-clipboard-target = "#_SCRIPT_ID" class = "btn align-right" onclick="incCopied('SCRIPT_ID')">Copy</button>
     <button onclick = "openUpdateWindow('SCRIPT_ID')" class = "btn align-right">Update</button>
 </div>
 <div class = "description">SCRIPT_DESCRIPTION</div>
