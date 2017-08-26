@@ -54,3 +54,7 @@ function updateScriptOnDOM(id, script, description) {
     descriptionDOMElement.innerHTML = description;
 }
 
+function clearSearch(){
+    document.querySelector('input').value = '';
+    getAllScripts();
+}
